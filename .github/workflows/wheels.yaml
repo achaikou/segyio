@@ -1,6 +1,6 @@
 name: Wheels
 
-on: [push, pull_request]
+on: [workflow_dispatch, pull_request]
 
 jobs:
   wheels:
@@ -48,7 +48,7 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: >
             CMAKE_GENERATOR="${{ matrix.cmake_generator }}"
             CMAKE_GENERATOR_PLATFORM="${{ matrix.cmake_generator_platform }}"
-          CIBW_SKIP: pp* *-musllinux_* cp39-* cp36-* cp37-* cp38-*
+          CIBW_SKIP: pp* *-musllinux_* cp313-* cp39-* cp36-* cp37-* cp38-*
           CIBW_ARCHS: ${{ matrix.arch }}
         run: |
             python -m cibuildwheel --output-dir wheelhouse python/
