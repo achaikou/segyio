@@ -72,12 +72,12 @@ if 'MAKEFLAGS' in os.environ:
     os.environ['MAKEFLAGS'] = ' '.join(flags)
 
 skbuild.setup(
-    name = 'segyio',
+    name = 'test-ignore-segyio',
     description = 'Simple & fast IO for SEG-Y files',
     long_description = long_description,
     author = 'Equinor ASA',
-    author_email = 'jokva@equinor.com',
-    url = 'https://github.com/equinor/segyio',
+    author_email = 'dummy@equinor.com',
+    url = 'https://github.com/achaikou/segyio',
     packages = ['segyio', 'segyio.su'],
     package_data = { 'segyio': ['segyio.dll'], },
     license = 'LGPL-3.0',
