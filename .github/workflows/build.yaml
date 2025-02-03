@@ -81,3 +81,40 @@ jobs:
         run: |
             cd build
             ctest -C Release --output-on-failure
+
+
+  matlab:
+    runs-on: ubuntu-latest
+    name: Build and test matlab code
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v2
+
+      - name: Configure
+        shell: bash
+        run: |
+          ${{ matrix.scan }} cmake -S . -B build \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+            -DBUILD_PYTHON=OFF \
+            -DBUILD_MEX=ON \
+            -DBUILD_BIN=OFF \
+            -DBUILD_SHARED_LIBS=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib \
+
+      - name: Build and Install
+        shell: bash
+        run: |
+            cmake \
+              --build build \
+              --config Release \
+              --target install \
+
+      - name: Test
+        shell: bash
+        run: |
+            cd build
+            ctest -C Release --output-on-failure
