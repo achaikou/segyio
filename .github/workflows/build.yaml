@@ -135,7 +135,8 @@ jobs:
         continue-on-error: true
         run: |
             ls /home/runner/work/segyio/segyio/build/mex/test/
+            echo "spec.output"
             cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.output.log
+            echo "segy.output"
             cat /home/runner/work/segyio/segyio/build/mex/test/segy.m.output.log
-            cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.log
-            cat /home/runner/work/segyio/segyio/build/mex/test/segy.m.log
+
