@@ -226,7 +226,7 @@ function(matlab_test TYPE TESTNAME MCC_SOURCE_FILE)
 
     add_test(NAME ${TESTNAME}
             COMMAND ${MATLAB_ROOT}/bin/matlab -nodisplay -nosplash -nodesktop -r
-            "addpath('../mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('${MCC_SOURCE_FILE}'), exit(0), catch ME, disp('Error occurred'); fid = fopen('${MCC_SOURCE_FILE}.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;" > ${MCC_SOURCE_FILE}.output.log 2>&1
+            "addpath('/home/runner/work/segyio/segyio/mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('${MCC_SOURCE_FILE}'), exit(0), catch ME, disp('Error occurred'); fid = fopen('${MCC_SOURCE_FILE}.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;" > ${MCC_SOURCE_FILE}.output.log 2>&1
             )
 endfunction()
 
