@@ -93,6 +93,11 @@ jobs:
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v2
 
+      - name: Install matlab dependencies
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get -y install libgtk2.0-0
+
       - name: Configure
         shell: bash
         run: |
@@ -117,4 +122,4 @@ jobs:
         shell: bash
         run: |
             cd build
-            ctest -C Release --output-on-failure
+            ctest -C Release -V --timeout 120
