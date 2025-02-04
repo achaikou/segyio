@@ -134,6 +134,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
+            ls /home/runner/work/segyio/segyio/build/mex/test/
             cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.output.log
             cat /home/runner/work/segyio/segyio/build/mex/test/segy.m.output.log
             cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.log
