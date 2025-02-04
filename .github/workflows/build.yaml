@@ -118,11 +118,14 @@ jobs:
               --config Release \
               --target install \
 
-      - name: Test
-        shell: bash
-        run: |
-            cd build
-            ctest -C Release -V --timeout 120 --output-on-failure
+      # - name: Test
+      #   shell: bash
+      #   run: |
+      #       cd build
+      #       ctest -C Release -V --timeout 120 --output-on-failure
+
+      - name: Run tests
+        uses: matlab-actions/run-tests@v2
 
       - name: Print test logs
         if: always()
@@ -135,8 +138,8 @@ jobs:
         continue-on-error: true
         run: |
             ls /home/runner/work/segyio/segyio/build/mex/test/
-            echo "spec.output"
+            echo "Displaying spec.output"
             cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.output.log
-            echo "segy.output"
+            echo "Displaying segy.output"
             cat /home/runner/work/segyio/segyio/build/mex/test/segy.m.output.log
 
