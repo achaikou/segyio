@@ -122,4 +122,10 @@ jobs:
         shell: bash
         run: |
             cd build
-            ctest -C Release -V --timeout 120
+            ctest -C Release -V --timeout 120 --output-on-failure
+
+      - name: Print logs
+        if: always()
+        continue-on-error: true
+        run: |
+            cat /home/runner/work/segyio/segyio/build/Testing/Temporary/LastTest.log
