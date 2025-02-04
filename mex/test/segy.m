@@ -1,4 +1,6 @@
 disp('hi!!!!!');
+disp(getenv('LD_LIBRARY_PATH'));
+disp('ok.');
 % test segyline
 
 % preconditions
