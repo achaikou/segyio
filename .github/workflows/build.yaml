@@ -124,6 +124,17 @@ jobs:
       #       cd build
       #       ctest -C Release -V --timeout 120 --output-on-failure
 
+      - name: ls
+        shell: bash
+        run: |
+            ls /home/runner/work/segyio/segyio/build/mex
+            echo "above"
+            ls /home/runner/work/segyio/segyio/build
+            echo "above above"
+            ls /home/runner/work/segyio/segyio
+            echo "above above above"
+            ls /home/runner/work/segyio
+
       - name: Run script
         uses: matlab-actions/run-command@v2
         with:
