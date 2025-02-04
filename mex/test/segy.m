@@ -14,8 +14,9 @@ try
     data = Segy.get_cube( spec );
 
     assert(all(size(data) == [50, 5, 5]));
-catch
-    %nothing should be caught
+catch ME
+    disp('Caught exception:');
+    disp(ME.message);
     assert(false);
 end
 

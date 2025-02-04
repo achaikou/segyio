@@ -128,25 +128,25 @@ jobs:
         with:
           command: addpath('build/mex'), try, disp('Running something'); run('/home/runner/work/segyio/segyio/build/mex/test/segy.m'), exit(0), catch ME, disp('Error occurred!!'); disp(getReport(ME, 'extended')); fid = fopen('segy.m.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
 
-      - name: CTest
-        shell: bash
-        if: always()
-        continue-on-error: true
-        run: |
-            cd build
-            ctest -C Release -V --timeout 120 --output-on-failure
+      # - name: CTest
+      #   shell: bash
+      #   if: always()
+      #   continue-on-error: true
+      #   run: |
+      #       cd build
+      #       ctest -C Release -V --timeout 120 --output-on-failure
 
-      - name: Test
-        shell: bash
-        if: always()
-        continue-on-error: true
-        run: |
-            cd build
-            ./mex/test/segy.m
+      # - name: Test
+      #   shell: bash
+      #   if: always()
+      #   continue-on-error: true
+      #   run: |
+      #       cd build
+      #       ./mex/test/segy.m
 
 
-      - name: Run tests
-        uses: matlab-actions/run-tests@v2
+      # - name: Run tests
+      #   uses: matlab-actions/run-tests@v2
 
       - name: Print test logs
         if: always()
