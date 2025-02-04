@@ -124,8 +124,15 @@ jobs:
             cd build
             ctest -C Release -V --timeout 120 --output-on-failure
 
-      - name: Print logs
+      - name: Print test logs
         if: always()
         continue-on-error: true
         run: |
             cat /home/runner/work/segyio/segyio/build/Testing/Temporary/LastTest.log
+
+      - name: Print mex logs
+        if: always()
+        continue-on-error: true
+        run: |
+            cat /home/runner/work/segyio/segyio/build/mex/test/segyspec.m.log
+            cat /home/runner/work/segyio/segyio/build/mex/test/segy.m.log
