@@ -108,7 +108,7 @@ jobs:
       - name: Build and Install
         shell: bash
         run: |
-            cmake \
+            sudo cmake \
               --build build \
               --config Release \
               --target install \
