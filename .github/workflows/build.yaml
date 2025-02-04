@@ -127,18 +127,12 @@ jobs:
       - name: ls
         shell: bash
         run: |
-            ls /home/runner/work/segyio/segyio/build/mex
-            echo "above"
-            ls /home/runner/work/segyio/segyio/build
-            echo "above above"
-            ls /home/runner/work/segyio/segyio
-            echo "above above above"
-            ls /home/runner/work/segyio
+            ls /home/runner/work/segyio/segyio/mex
 
       - name: Run script
         uses: matlab-actions/run-command@v2
         with:
-          command: addpath('../mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('${MCC_SOURCE_FILE}'), exit(0), catch ME, disp('Error occurred'); fid = fopen('${MCC_SOURCE_FILE}.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
+          command: addpath('build/mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('${MCC_SOURCE_FILE}'), exit(0), catch ME, disp('Error occurred'); fid = fopen('${MCC_SOURCE_FILE}.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
 
       - name: Test
         shell: bash
