@@ -34,6 +34,7 @@ end
 try
     Segy.get_traces('does-not-exist', 189, 193 );
     assert(false);
+    disp('I am here, all gooood!');
 catch
     assert(true);
 end

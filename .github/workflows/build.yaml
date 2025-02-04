@@ -131,6 +131,12 @@ jobs:
         with:
           command: addpath('build/mex'), try, disp('Running something'); run('/home/runner/work/segyio/segyio/build/mex/test/segy.m'), exit(0), catch ME, disp('Error occurred!!'); disp(getReport(ME, 'extended')); fid = fopen('segy.m.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
 
+      - name: Run spec script
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath('build/mex'), try, disp('Running something spec'); run('/home/runner/work/segyio/segyio/build/mex/test/segyspec.m'), exit(0), catch ME, disp('Error occurred!!'); disp(getReport(ME, 'extended')); fid = fopen('segyspec.m.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
+  
+
       # - name: CTest
       #   shell: bash
       #   if: always()

@@ -1,5 +1,7 @@
 % test segyspec
 
+disp('spec is on!:');
+
 % preconditions 
 filename = 'test-data/small.sgy';
 assert(exist(filename,'file')==2);
@@ -86,3 +88,5 @@ assert(length(spec.inline_indexes)==5)
 for il = spec.inline_indexes'
     assert(il >= 1 && il <= 5);
 end
+
+disp('spec is off:()');
