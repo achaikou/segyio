@@ -121,12 +121,12 @@ jobs:
       - name: ls
         shell: bash
         run: |
-            ls /home/runner/work/segyio/segyio/mex
+            ls /home/runner/work/segyio/segyio/build/mex/test
 
       - name: Run script
         uses: matlab-actions/run-command@v2
         with:
-          command: addpath('build/mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('Segy.m'), exit(0), catch ME, disp('Error occurred!!'); fid = fopen('segy.m.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
+          command: addpath('build/mex'), try, disp('Running ${MCC_SOURCE_FILE}'); run('test/segy.m'), exit(0), catch ME, disp('Error occurred!!'); fid = fopen('segy.m.log', 'wt'); fprintf(fid, '%s\n', getReport(ME)); fclose(fid), exit(-1), end;
 
       - name: CTest
         shell: bash
@@ -142,7 +142,7 @@ jobs:
         continue-on-error: true
         run: |
             cd build
-            ./test/segy.m
+            ./mex/test/segy.m
 
 
       - name: Run tests
