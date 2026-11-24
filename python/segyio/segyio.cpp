@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
+#include <new>
 #include <sstream>
 #include <stdexcept>
 
@@ -544,8 +545,19 @@ PyObject* suopen( segyiofd* self, PyObject* args ) {
     return (PyObject*) self;
 }
 
+PyObject* segyiofd_new( PyTypeObject* type, PyObject*, PyObject* ) {
+    segyiofd* self = (segyiofd*)type->tp_alloc( type, 0 );
+    if( !self ) return NULL;
+
+    new( &self->fd ) autofd();
+
+    return (PyObject*)self;
+}
+
 void dealloc( segyiofd* self ) {
     self->fd.close();
+    self->~segyiofd();
+
     Py_TYPE( self )->tp_free( (PyObject*) self );
 }
 
@@ -1684,7 +1696,7 @@ static struct PyModuleDef segyio_module = {
 PyMODINIT_FUNC
 PyInit__segyio(void) {
 
-    Segyiofd.tp_new = PyType_GenericNew;
+    Segyiofd.tp_new = fd::segyiofd_new;
     if( PyType_Ready( &Segyiofd ) < 0 ) return NULL;
 
     PyObject* m = PyModule_Create(&segyio_module);
@@ -1699,7 +1711,7 @@ PyInit__segyio(void) {
 #else
 PyMODINIT_FUNC
 init_segyio(void) {
-    Segyiofd.tp_new = PyType_GenericNew;
+    Segyiofd.tp_new = fd::segyiofd_new;
     if( PyType_Ready( &Segyiofd ) < 0 ) return;
 
     PyObject* m = Py_InitModule("_segyio", SegyMethods);
