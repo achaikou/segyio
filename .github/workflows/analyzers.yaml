@@ -69,6 +69,15 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install build/test dependencies
+        working-directory: python
+        run: |
+          python -m pip install -r requirements-dev.txt
+
       - name: Build segyio with ASAN
         run: |
           cmake -S . -B build           \
@@ -77,23 +86,16 @@ jobs:
           -DCMAKE_CXX_FLAGS_DEBUG="-g -O1 -fsanitize=address -fno-omit-frame-pointer" \
           -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address" \
           -DBUILD_SHARED_LIBS=ON        \
-          -DBUILD_PYTHON=OFF
+          -DBUILD_PYTHON=ON \
+          -DBUILD_TESTING=ON
           cmake --build build
 
-      - name: Run ASAN on C tests, file
-        working-directory: build/lib
+      - name: Run ASAN tests (C, C++, Python)
+        working-directory: build
+        env:
+          PYTHONMALLOC: malloc
         run: |
-          ./c.segy "[c.segy]"
-
-      - name: Run ASAN on C tests, mmap
-        working-directory: build/lib
-        run: |
-          ./c.segy "[c.segy]" "--test-mmap"
-
-      - name: Run ASAN on C++ tests
-        working-directory: build/lib
-        run: |
-          ./c.segy "[c++]"
+          LD_PRELOAD="$(gcc -print-file-name=libasan.so)" ctest -V
 
   valgrind:
     runs-on: ubuntu-latest
